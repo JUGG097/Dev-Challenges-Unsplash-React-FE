@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import StyledHeader from "../styles/Header.styled";
 import { BiSearchAlt2 } from "react-icons/bi";
+import AddModal from "./AddModal";
 
 const Header: React.FC = () => {
+	const [addModalOpen, setAddModalOpen] = useState(false);
+
+	const handleAddModalOpen = () => setAddModalOpen(true);
+	const handleAddModalClose = () => {
+		setAddModalOpen(false);
+	};
+
 	return (
 		<>
 			<StyledHeader>
@@ -24,10 +32,16 @@ const Header: React.FC = () => {
 						/>
 					</div>
 					<div className="col-sm-12 col-md-3 mt-3 add-photo-col">
-						<button className="btn btn-success">Add a photo</button>
+						<button
+							className="btn btn-success"
+							onClick={handleAddModalOpen}
+						>
+							Add a photo
+						</button>
 					</div>
 				</div>
 			</StyledHeader>
+			<AddModal open={addModalOpen} handleClose={handleAddModalClose} />
 		</>
 	);
 };

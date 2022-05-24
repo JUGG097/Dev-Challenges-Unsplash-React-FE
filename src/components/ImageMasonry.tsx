@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Masonry } from "@mui/lab";
 import StyledImageMasonry from "../styles/ImageMasonry.styled";
 import { ImageList } from "../utils/types";
+import DeleteModal from "./DeleteModal";
 
 const ImageMasonry: React.FC<{
 	images: ImageList;
 }> = ({ images }) => {
 	// Limit Length of image label
+	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+	const handleDeleteModalOpen = () => setDeleteModalOpen(true);
+	const handleDeleteModalClose = () => {
+		// e.preventDefault();
+		setDeleteModalOpen(false);
+	};
 
 	return (
 		<>
@@ -22,12 +30,15 @@ const ImageMasonry: React.FC<{
 					>
 						{images.map((item, index) => (
 							<div key={index} className="masonry-img-wrapper">
-								<button className="btn btn-success">
+								<button
+									className="btn btn-success"
+									onClick={handleDeleteModalOpen}
+								>
 									Delete
 								</button>
 								<img
-									src={`${item.img}?w=162&auto=format`}
-									srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
+									src={`${item.img_url}?w=162&auto=format`}
+									srcSet={`${item.img_url}?w=162&auto=format&dpr=2 2x`}
 									alt={item.label}
 									loading="lazy"
 									style={{
@@ -42,6 +53,10 @@ const ImageMasonry: React.FC<{
 					</Masonry>
 				</div>
 			</StyledImageMasonry>
+			<DeleteModal
+				open={deleteModalOpen}
+				handleClose={handleDeleteModalClose}
+			/>
 		</>
 	);
 };

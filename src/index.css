@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiDialog-container .css-tlc64q-MuiPaper-root-MuiDialog-paper {
+  border-radius: 10px;
+}
