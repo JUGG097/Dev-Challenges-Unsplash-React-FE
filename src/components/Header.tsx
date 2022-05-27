@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import StyledHeader from "../styles/Header.styled";
 import { BiSearchAlt2 } from "react-icons/bi";
 import AddModal from "./AddModal";
+import { HeaderProps } from "../utils/types";
 
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = ({ handleChange }) => {
 	const [addModalOpen, setAddModalOpen] = useState(false);
 
 	const handleAddModalOpen = () => setAddModalOpen(true);
@@ -29,6 +30,7 @@ const Header: React.FC = () => {
 							name="img-search"
 							id="img-search"
 							placeholder="Search by name"
+							onChange={handleChange}
 						/>
 					</div>
 					<div className="col-sm-12 col-md-3 mt-3 add-photo-col">

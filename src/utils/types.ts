@@ -1,5 +1,5 @@
 export type ImageList = {
-	id: string;
+	_id: string;
 	img_url: string;
 	label: string;
 }[];
@@ -12,11 +12,21 @@ export type AddModalProps = {
 export type DeleteModalProps = {
 	open: boolean;
 	handleClose: () => void;
-	imgId?: string;
+	imgId: string;
+};
+
+export type HeaderProps = {
+	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export type ImageData = {
-	id: string;
+	_id: string;
 	img_url: string;
 	label: string;
+};
+
+export type ImageSliceProps = {
+	images: ImageList;
+	searchTerm: string;
+	filterImages: ImageList;
 };

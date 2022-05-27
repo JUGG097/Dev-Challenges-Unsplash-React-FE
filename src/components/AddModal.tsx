@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
+import axios from "axios";
+import { errorToast } from "../utils/helper";
 import StyledModal from "../styles/Modal.styled";
 import { AddModalProps, ImageData } from "../utils/types";
 import { useAppDispatch } from "../app/hooks";
 import { addImage } from "../features/images/imageSlice";
+import imagesUrl from "../utils/urls";
 
 const AddModal: React.FC<AddModalProps> = ({ open, handleClose }) => {
 	const dispatch = useAppDispatch();
 	const [addImageLoading, setAddImageLoading] = useState(false);
 	const [imgData, setImgData] = useState<ImageData>({
-		id: "1ws",
+		_id: "1ws",
 		img_url: "",
 		label: "",
 	});
@@ -20,16 +23,26 @@ const AddModal: React.FC<AddModalProps> = ({ open, handleClose }) => {
 
 	const handleAddImage = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		console.log("It submits");
-		console.log(imgData);
 
+		const url = imagesUrl();
 		setAddImageLoading(true);
 		// Axios Request goes here
-		dispatch(addImage(imgData));
-		handleClose();
-		setAddImageLoading(false);
+		axios
+			.post(url, imgData)
+			.then((res) => {
+				dispatch(addImage(res.data.data));
+				handleClose();
+				setAddImageLoading(false);
+			})
+			.catch((err) => {
+				handleClose();
+				setAddImageLoading(false);
+				errorToast("Could not add photo");
+			});
+
+		// Reset the form state
 		setImgData({
-			id: "1ws",
+			_id: "",
 			img_url: "",
 			label: "",
 		});

@@ -1,26 +1,42 @@
 import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
+import axios from "axios";
+import { errorToast } from "../utils/helper";
 import StyledModal from "../styles/Modal.styled";
 import { DeleteModalProps } from "../utils/types";
+import { useAppDispatch } from "../app/hooks";
+import { deleteImage } from "../features/images/imageSlice";
+import imagesUrl from "../utils/urls";
 
-const DeleteModal: React.FC<DeleteModalProps> = ({ open, handleClose }) => {
+const DeleteModal: React.FC<DeleteModalProps> = ({
+	open,
+	handleClose,
+	imgId,
+}) => {
+	const dispatch = useAppDispatch();
 	const [deleteImageLoading, setDeleteImageLoading] = useState(false);
+
 	const handleDeleteImage = () => {
-		// e.preventDefault();
-		console.log("It submitts");
+		const url = imagesUrl();
 		setDeleteImageLoading(true);
 		// Axios request and redux dispatch goes here
-
-		// setTimeout(() => {
-		// 	setDeleteImageLoading(false);
-		// 	handleClose();
-		// }, 5000);
+		axios
+			.delete(`${url}/${imgId}`)
+			.then((res) => {
+				dispatch(deleteImage(imgId));
+				handleClose();
+				setDeleteImageLoading(false);
+			})
+			.catch((err) => {
+				handleClose();
+				setDeleteImageLoading(false);
+				errorToast("Could not delete photo");
+			});
 	};
 	return (
 		<>
 			<Dialog
 				open={open}
-				// onClose={handleClose}
 				maxWidth="sm"
 				fullWidth={true}
 				aria-labelledby="modal-modal-title"
