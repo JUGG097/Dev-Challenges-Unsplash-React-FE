@@ -97,7 +97,9 @@ const AddModal: React.FC<AddModalProps> = ({ open, handleClose }) => {
 
 							<div className="row mt-4 img-url-input">
 								<div className="col-12">
-									<label htmlFor="url">Photo URL*</label>
+									<label htmlFor="url">
+										Photo URL* (must be a valid URL)
+									</label>
 								</div>
 								<div className="col-12">
 									<input
