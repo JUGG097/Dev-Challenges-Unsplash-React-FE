@@ -21,7 +21,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
 		setDeleteImageLoading(true);
 		// Axios request and redux dispatch goes here
 		axios
-			.delete(`${url}/${imgId}`)
+			.delete(`${url}${imgId}/`)
 			.then((res) => {
 				dispatch(deleteImage(imgId));
 				handleClose();

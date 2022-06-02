@@ -4,7 +4,7 @@ const imagesUrl = () => {
 	} else {
 		// return "http://127.0.0.1:8000/v1/image/";
 		// return "http://localhost:8000/api/v1/images";
-		return "http://127.0.0.1:8000/api/v1/images";
+		return "http://127.0.0.1:8000/api/v1/images/";
 	}
 };
 
